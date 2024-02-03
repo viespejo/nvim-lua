@@ -19,6 +19,7 @@ spec("user.cmp")
 spec("user.undotree")
 spec("user.fugitive")
 spec("user.gitsigns")
+spec("user.aerial")
 -- extras
 spec("user.extras.matchup")
 spec("user.extras.rainbow")
