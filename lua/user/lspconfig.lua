@@ -5,6 +5,13 @@ local M = {
 		{
 			"folke/neodev.nvim",
 		},
+		-- Visualize lsp progress
+		{
+			"j-hui/fidget.nvim",
+			config = function()
+				require("fidget").setup()
+			end,
+		},
 	},
 }
 

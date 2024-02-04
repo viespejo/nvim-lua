@@ -9,18 +9,18 @@ local M = {
 			"hrsh7th/cmp-emoji",
 			event = "InsertEnter",
 		},
-		{
-			"hrsh7th/cmp-buffer",
-			event = "InsertEnter",
-		},
-		{
-			"hrsh7th/cmp-path",
-			event = "InsertEnter",
-		},
-		{
-			"hrsh7th/cmp-cmdline",
-			event = "InsertEnter",
-		},
+		-- {
+		-- 	"hrsh7th/cmp-buffer",
+		-- 	event = "InsertEnter",
+		-- },
+		-- {
+		-- 	"hrsh7th/cmp-path",
+		-- 	event = "InsertEnter",
+		-- },
+		-- {
+		-- 	"hrsh7th/cmp-cmdline",
+		-- 	event = "InsertEnter",
+		-- },
 		{
 			"saadparwaiz1/cmp_luasnip",
 			event = "InsertEnter",
@@ -35,17 +35,17 @@ local M = {
 		{
 			"hrsh7th/cmp-nvim-lua",
 		},
-		{
-			"roobert/tailwindcss-colorizer-cmp.nvim",
-		},
+		-- {
+		-- 	"roobert/tailwindcss-colorizer-cmp.nvim",
+		-- },
 	},
 	event = "InsertEnter",
 }
 
 function M.config()
-	require("tailwindcss-colorizer-cmp").setup({
-		color_square_width = 2,
-	})
+	-- require("tailwindcss-colorizer-cmp").setup({
+	-- 	color_square_width = 2,
+	-- })
 
 	vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 	vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" })
@@ -152,8 +152,8 @@ function M.config()
 					nvim_lsp = "[LSP]",
 					nvim_lua = "[NVIM_LUA]",
 					luasnip = "[Snippet]",
-					buffer = "[Buffer]",
-					path = "[Path]",
+					-- buffer = "[Buffer]",
+					-- path = "[Path]",
 					emoji = "[Emoji]",
 					["vim-dadbod-completion"] = "[DB]",
 				})[entry.source.name]
@@ -207,8 +207,8 @@ function M.config()
 			},
 			{ name = "luasnip" },
 			{ name = "nvim_lua" },
-			{ name = "buffer" },
-			{ name = "path" },
+			-- { name = "buffer" },
+			-- { name = "path" },
 			{ name = "emoji" },
 		},
 		confirm_opts = {

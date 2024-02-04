@@ -63,6 +63,35 @@ function M.config()
 		end,
 	}
 
+	local lsp_server = {
+		-- Lsp server name .
+		function()
+			local msg = "No Active Lsp"
+			local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+			local clients = vim.lsp.get_active_clients()
+			if next(clients) == nil then
+				return msg
+			end
+
+			local client_names = {}
+			for _, client in ipairs(clients) do
+				local filetypes = client.config.filetypes
+				if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+					-- add client name to the list
+					table.insert(client_names, client.name)
+				end
+			end
+
+			if next(client_names) ~= nil then
+				return table.concat(client_names, ", ")
+			end
+
+			return msg
+		end,
+		icon = " LSP:",
+		color = { fg = "#ffffff", gui = "bold" },
+	}
+
 	require("lualine").setup({
 		options = {
 			theme = "tokyonight",
@@ -75,7 +104,7 @@ function M.config()
 			lualine_a = { mode },
 			lualine_b = { branch, diff, diagnostics },
 			lualine_c = { "filename" },
-			lualine_x = { "copilot", "encoding", { "fileformat", icons_enabled = false }, filetype },
+			lualine_x = { lsp_server, "copilot", "encoding", { "fileformat", icons_enabled = false }, filetype },
 			lualine_y = { "progress" },
 			lualine_z = { "location" },
 		},
@@ -94,6 +123,7 @@ function M.config()
 			"oil",
 			require("user.lualine-extensions.fzf"),
 			require("user.lualine-extensions.nvimtree"),
+			require("user.lualine-extensions.trouble"),
 			"trouble",
 			"mason",
 			"lazy",
