@@ -1,13 +1,16 @@
 local M = {
 	"tpope/vim-fugitive",
-	event = "VeryLazy",
+	lazy = true,
+	keys = {
+		{ "<leader>gs", "<cmd>Git<cr>", desc = "Fugitive" },
+	},
 }
 
 function M.config()
 	local opts = { noremap = true, silent = true, desc = "Fugitive" }
 	local keymap = vim.api.nvim_set_keymap
 
-	keymap("n", "<leader>gs", ":Git<cr>", opts)
+	-- keymap("n", "<leader>gs", ":Git<cr>", opts)
 	keymap("n", "<leader>gd", ":Gdiffsplit<cr>", opts)
 	keymap("n", "<leader>gc", ":Git commit<cr>", opts)
 	keymap("n", "<leader>gb", ":Git blame<cr>", opts)
