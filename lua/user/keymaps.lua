@@ -129,5 +129,8 @@ keymap("c", "%%", "<c-r>=expand('%:h')<cr>", command_opts)
 -- TERMINAL
 
 -- Better terminal navigation
-keymap("t", "<leader><esc>", "<c-\\><c-n>", term_opts)
-keymap("t", "<leader>w", "<c-\\><c-n><c-w>", term_opts)
+keymap("t", "ý<esc>", "<c-\\><c-n>", term_opts)
+keymap("t", "ýh", "<c-\\><c-n><c-w>h", opts)
+keymap("t", "ýj", "<c-\\><c-n><c-w>j", opts)
+keymap("t", "ýk", "<c-\\><c-n><c-w>k", opts)
+keymap("t", "ýl", "<c-\\><c-n><c-w>l", opts)
