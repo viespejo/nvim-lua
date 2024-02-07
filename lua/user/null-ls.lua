@@ -52,7 +52,7 @@ function M.config()
 			diagnostics.eslint,
 			code_actions.eslint,
 			require("typescript.extensions.null-ls.code-actions"),
-			null_ls.builtins.completion.spell,
+			-- null_ls.builtins.completion.spell,
 		},
 		on_attach = function(client, bufnr)
 			if client.server_capabilities.documentFormattingProvider then
