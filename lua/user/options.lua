@@ -4,7 +4,7 @@ vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboar
 vim.opt.path = ",.**" -- |:find|, |:sfind|, |:tabfind| and other commands
 vim.opt.splitbelow = true -- force all horizontal splits to go below current window
 vim.opt.splitright = true -- force all vertical splits to go to the right of current window
-vim.opt.completeopt = { "menuone", "noinsert", "noselect" } -- mostly just for cmp
+vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 vim.opt.list = true
 vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
 vim.opt.tabstop = 2 -- insert 2 spaces for a tab
@@ -33,13 +33,13 @@ vim.opt.updatetime = 300 -- faster completion (4000ms default)
 vim.opt.cursorline = true -- highlight the current line
 vim.opt.wrap = false -- display lines as one long line
 vim.opt.sidescrolloff = 8
-vim.opt.shada = [['50,<50,s10,h,/100]]          -- shada options
-vim.opt.listchars = {                         -- strings to use in list mode
-  tab = '→.',
-  trail = '·',
-  eol = '¬',
-  extends = '…',
-  precedes = '…'
+vim.opt.shada = [['50,<50,s10,h,/100]] -- shada options
+vim.opt.listchars = { -- strings to use in list mode
+	tab = "→.",
+	trail = "·",
+	eol = "¬",
+	extends = "…",
+	precedes = "…",
 }
-vim.opt.shortmess:append "c" -- default vertical split for diff mode
-vim.opt.diffopt:append('vertical')            -- default vertical split for diff mode
+vim.opt.shortmess:append("c") -- default vertical split for diff mode
+vim.opt.diffopt:append("vertical") -- default vertical split for diff mode
