@@ -56,6 +56,11 @@ function M.config()
 			ls.change_choice(1)
 		end
 	end)
+
+	vim.cmd([[command! LuaSnipEdit :lua require("luasnip.loaders").edit_snippet_files()]])
+	require("luasnip.loaders.from_vscode").lazy_load({ build = "make install_jsregexp" })
+	require("luasnip.loaders.from_lua").lazy_load({ paths = "./lua/snippets" })
+	require("luasnip").filetype_extend("typescriptreact", { "html" })
 end
 
 return M
