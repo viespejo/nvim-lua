@@ -83,7 +83,14 @@ function M.config()
 			end
 
 			if next(client_names) ~= nil then
-				return table.concat(client_names, ", ")
+				local concatenated = table.concat(client_names, ", ")
+				local max = 40
+				-- trucate the string if it's too long
+				if string.len(concatenated) > max then
+					concatenated = string.sub(concatenated, 1, max) .. "..."
+				end
+
+				return concatenated
 			end
 
 			return msg
@@ -102,7 +109,8 @@ function M.config()
 		},
 		sections = {
 			lualine_a = { mode },
-			lualine_b = { branch, diff, diagnostics },
+			-- lualine_b = { branch, diff, diagnostics },
+			lualine_b = { branch, diagnostics },
 			lualine_c = { "filename" },
 			lualine_x = { lsp_server, "copilot", "encoding", { "fileformat", icons_enabled = false }, filetype },
 			lualine_y = { "progress" },
