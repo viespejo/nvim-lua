@@ -106,7 +106,7 @@ function M.config()
 		"intelephense",
 		"lua_ls",
 		"pyright",
-		"tailwindcss",
+		-- "tailwindcss",
 		"html",
 		"tsserver",
 		"bashls",
