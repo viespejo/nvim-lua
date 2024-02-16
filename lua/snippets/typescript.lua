@@ -1,4 +1,5 @@
 local s = require("luasnip")
 
--- console log snippet
-local console_log = s.parser.parse_snippet({ trig = "cl" }, "console.log(${1:msg});")
+return {
+	s.parser.parse_snippet({ trig = "cl", priority = 2000 }, "console.log(${1:msg});$0"),
+}
