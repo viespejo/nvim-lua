@@ -3,6 +3,7 @@ local M = {
 	lazy = true,
 	keys = {
 		{ "<leader>gs", "<cmd>Git<cr>", desc = "Fugitive" },
+		{ "<leader>gc", "<cmd>Git commit<cr>", desc = "Fugitive" },
 	},
 }
 
