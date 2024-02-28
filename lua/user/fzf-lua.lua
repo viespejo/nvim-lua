@@ -119,6 +119,7 @@ function M.config()
 	keymap("n", "<Space>r", ":FzfLua resume<cr>", opts)
 	keymap("n", "<Space>a", "<cmd>call aerial#fzf()<cr>", opts)
 	keymap("n", "<Space>R", ":FzfLua registers<cr>", opts)
+	keymap("n", "<Space>t", ":FzfLua diagnostics_workspace<cr>", opts)
 end
 
 return M

@@ -5,13 +5,7 @@ local M = {
 function M.config()
 	vim.keymap.set(
 		"n",
-		"<Space>tt",
-		":TroubleToggle document_diagnostics<cr>",
-		{ noremap = true, silent = true, desc = "Trouble" }
-	)
-	vim.keymap.set(
-		"n",
-		"<Space>tT",
+		"<leader>tt",
 		":TroubleToggle workspace_diagnostics<cr>",
 		{ noremap = true, silent = true, desc = "Trouble" }
 	)
