@@ -12,6 +12,12 @@ local M = {
 				require("fidget").setup()
 			end,
 		},
+		-- typescript plugin to use with tsserver directly
+		{
+			"pmizio/typescript-tools.nvim",
+			dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+			opts = {},
+		},
 	},
 }
 
@@ -108,7 +114,8 @@ function M.config()
 		"pyright",
 		-- "tailwindcss",
 		"html",
-		"tsserver",
+		-- "tsserver",
+		"typescript-tools",
 		"bashls",
 		"jsonls",
 		"yamlls",
