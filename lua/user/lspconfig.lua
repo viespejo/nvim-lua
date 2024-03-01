@@ -46,6 +46,7 @@ local function lsp_keymaps(bufnr)
 	keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 	keymap(bufnr, "n", "<leader>qq", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
 	keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+	keymap(bufnr, "v", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 	keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<cr>', opts)
 	keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<cr>', opts)
 	keymap(bufnr, "n", "<leader>ll", "<cmd>lua vim.diagnostic.setloclist()<cr>", opts)
@@ -65,7 +66,7 @@ M.on_attach = function(client, bufnr)
 	--   vim.lsp.inlay_hint.enable(bufnr, true)
 	-- end
 
-	-- print(client.name .. vim.inspect(client.resolved_capabilities))
+	-- print(client.name .. vim.inspect(client.server_capabilities))
 	if client.server_capabilities.documentFormattingProvider then
 		-- those servers with formatting capability we format when saving
 		vim.cmd([[
