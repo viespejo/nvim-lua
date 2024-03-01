@@ -103,7 +103,7 @@ keymap("v", "<m-j>", ":m .+1<cr>==", opts)
 keymap("v", "<m-k>", ":m .-2<cr>==", opts)
 
 -- copy whith losing register
-keymap({ "x", "v" }, "p", [["_dP]])
+-- keymap({ "x", "v" }, "p", [["_dP]])
 
 -- VISUAL BLOCK
 
