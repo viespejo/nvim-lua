@@ -38,6 +38,7 @@ function M.config()
 				--
 				--   return {}
 				-- end,
+				extra_filetypes = { "astro" },
 				prefer_local = "node_modules/.bin",
 			}),
 			formatting.black,
