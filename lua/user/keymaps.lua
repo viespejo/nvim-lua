@@ -67,6 +67,9 @@ keymap("n", "<leader>ew", ":e <c-r>=expand('%:h')<cr>", {})
 -- toggle wrap
 keymap("n", "<Space>w", ":set wrap!<cr>", opts)
 
+-- toggle spell
+keymap("n", "<Space>z", ":set spell!<cr>", opts)
+
 -- quickfix and location list
 keymap("n", "<leader>qo", ":copen<cr>", opts)
 keymap("n", "<leader>qc", ":cclose<cr>", opts)
