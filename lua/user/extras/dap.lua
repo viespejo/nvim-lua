@@ -5,6 +5,8 @@ local M = {
 		{
 			"rcarriga/nvim-dap-ui",
 			"theHamsta/nvim-dap-virtual-text",
+			-- golang dap
+			"leoluz/nvim-dap-go",
 		},
 	},
 	keys = {
@@ -12,6 +14,12 @@ local M = {
 			"<leader>db",
 			function()
 				require("dap").toggle_breakpoint()
+			end,
+		},
+		{
+			"<leader>dB",
+			function()
+				require("dap").toggle_breakpoint(vim.fn.input("Breakpoint condition: "))
 			end,
 		},
 		{
@@ -75,16 +83,9 @@ function M.config()
 	keymap("n", "<leader>dg", function()
 		dap.run_to_cursor()
 	end, opts)
-	keymap("n", "<leader>dB", function()
-		dap.set_breakpoin()
+	keymap("n", "<leader>d/", function()
+		dapui.toggle()
 	end, opts)
-	-- keymap("n", "<leader>dr", function()
-	-- 	dap.repl.toggle({ height = 15 })
-	-- end, opts)
-	-- keymap("n", "<leader>d/", function()
-	-- 	local sidebar = widgets.sidebar(widgets.scopes)
-	-- 	sidebar.toggle()
-	-- end, opts)
 	keymap({ "n", "v" }, "<leader>de", function()
 		dapui.eval()
 	end, opts)
@@ -93,7 +94,100 @@ function M.config()
 	end, opts)
 	keymap("n", "<leader>dl", ":DapVirtualTextForceRefresh<CR>", opts)
 
-	-- see adapters in ftplugin
+	-- ADAPTERS AND CONFIGURATIONS
+
+	-- GO
+	require("dap-go").setup({
+		-- Additional dap configurations
+		-- :help dap-configuration
+		dap_configurations = {
+			{
+				type = "go",
+				name = "Attach remote",
+				mode = "remote",
+				request = "attach",
+			},
+		},
+		delve = {
+			port = "38699",
+		},
+	})
+
+	-- JAVASCRIPT / TYPESCRIPT
+	for _, adapter in ipairs({ "pwa-node", "pwa-chrome" }) do
+		dap.adapters[adapter] = {
+			type = "server",
+			host = "localhost",
+			port = "${port}",
+			executable = {
+				command = "js-debug-adapter",
+				args = { "${port}" },
+			},
+		}
+	end
+
+	for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
+		dap.configurations[language] = {
+			{
+				type = "pwa-node",
+				request = "launch",
+				name = "Launch file",
+				program = "${file}",
+				cwd = "${workspaceFolder}",
+			},
+			{
+				type = "pwa-node",
+				request = "attach",
+				name = "Attach",
+				processId = require("dap.utils").pick_process,
+				cwd = "${workspaceFolder}",
+			},
+			{
+				type = "pwa-chrome",
+				request = "launch",
+				name = "Launch Chrome",
+				url = function()
+					local co = coroutine.running()
+					return coroutine.create(function()
+						vim.ui.input({
+							prompt = "Enter URL: ",
+							default = "http://localhost:3000",
+						}, function(url)
+							if url == nil or url == "" then
+								return
+							else
+								coroutine.resume(co, url)
+							end
+						end)
+					end)
+				end,
+				webRoot = "${workspaceFolder}",
+				skipFiles = { "<node_internals>/**/*.js" },
+			},
+			{
+				type = "pwa-chrome",
+				request = "attach",
+				name = "Attach Chrome",
+				port = function()
+					local co = coroutine.running()
+					return coroutine.create(function()
+						vim.ui.input({
+							prompt = "Enter Port: ",
+							default = "9222",
+						}, function(port)
+							if port == nil or port == "" then
+								return
+							else
+								coroutine.resume(co, port)
+							end
+						end)
+					end)
+				end,
+				webRoot = "${workspaceFolder}",
+				skipFiles = { "<node_internals>/**/*.js" },
+			},
+		}
+	end
 end
 
 return M
