@@ -185,7 +185,13 @@ function M.config()
 		end
 
 		if server == "lua_ls" then
-			require("neodev").setup({})
+			require("neodev").setup({
+				library = {
+					plugins = false, -- installed opt or start plugins in packpath
+					-- you can also specify the list of plugins to make available as a workspace library
+					-- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
+				},
+			})
 		end
 
 		lspconfig[server].setup(opts)
