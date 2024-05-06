@@ -2,6 +2,7 @@ local M = {
 	"nvimtools/none-ls.nvim",
 	dependencies = {
 		{
+			"nvimtools/none-ls-extras.nvim",
 			"jose-elias-alvarez/typescript.nvim",
 			"nvim-lua/plenary.nvim",
 		},
@@ -42,16 +43,20 @@ function M.config()
 				prefer_local = "node_modules/.bin",
 			}),
 			formatting.black,
-			diagnostics.flake8.with({
+			-- diagnostics.flake8.with({
+			-- 	extra_args = { "--ignore=E501,E203" },
+			-- 	filetypes = { "python" },
+			-- }),
+			-- formatting.yapf,
+			require("none-ls.diagnostics.flake8").with({
 				extra_args = { "--ignore=E501,E203" },
 				filetypes = { "python" },
 			}),
-			-- formatting.yapf,
 			formatting.stylua,
 			diagnostics.stylelint,
 			formatting.stylelint,
-			diagnostics.eslint,
-			code_actions.eslint,
+			require("none-ls.diagnostics.eslint"),
+			require("none-ls.code_actions.eslint"),
 			require("typescript.extensions.null-ls.code-actions"),
 			-- null_ls.builtins.completion.spell,
 		},
