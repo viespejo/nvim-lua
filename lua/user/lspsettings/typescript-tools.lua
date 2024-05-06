@@ -3,9 +3,6 @@ return {
 	custom_on_attach = function(on_attach)
 		return function(client, bufnr)
 			on_attach(client, bufnr)
-			-- we use null-ls for formatting (prettier)
-			client.server_capabilities.documentFormattingProvider = false
-			client.server_capabilities.documentRangeFormattingProvider = false
 
 			vim.api.nvim_buf_set_keymap(
 				bufnr,

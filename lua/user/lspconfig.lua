@@ -52,30 +52,31 @@ local function lsp_keymaps(bufnr)
 	keymap(bufnr, "n", "<leader>ll", "<cmd>lua vim.diagnostic.setloclist()<cr>", opts)
 	keymap(bufnr, "n", "<leader>hh", "<cmd>lua vim.lsp.buf.document_highlight()<cr>", opts)
 	keymap(bufnr, "n", "<leader>H", "<cmd>lua vim.lsp.buf.clear_references()<cr>", opts)
-	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()' ]])
-	keymap(bufnr, "n", "<leader>f", ":Format<cr>", opts)
-	keymap(bufnr, "v", "<leader>f", ":Format<cr>", opts)
+	vim.cmd([[ command! FormatLSP execute 'lua vim.lsp.buf.format()' ]])
+	keymap(bufnr, "n", "<leader>fl", ":FormatLSP<cr>", { noremap = true, desc = "Format using LSP" })
+	keymap(bufnr, "v", "<leader>fl", ":FormatLSP<cr>", { noremap = true, desc = "Format using LSP" })
 end
 
 M.on_attach = function(client, bufnr)
 	lsp_keymaps(bufnr)
+
 	-- lsp_highlight_document(client)
 
 	-- native lsp inlay hints (Neovim nightly v0.10.0-dev-....)
-	-- if client.supports_method "textDocument/inlayHint" then
-	--   vim.lsp.inlay_hint.enable(bufnr, true)
+	-- if client.supports_method("textDocument/inlayHint") then
+	-- 	vim.lsp.inlay_hint.enable(bufnr, true)
 	-- end
 
 	-- print(client.name .. vim.inspect(client.server_capabilities))
-	if client.server_capabilities.documentFormattingProvider then
-		-- those servers with formatting capability we format when saving
-		vim.cmd([[
-        augroup vec_lsp_formatting
-          au! * <buffer>
-          autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
-        augroup END
-      ]])
-	end
+	-- if client.server_capabilities.documentFormattingProvider then
+	-- 	-- those servers with formatting capability we format when saving
+	-- 	vim.cmd([[
+	--        augroup vec_lsp_formatting
+	--          au! * <buffer>
+	--          autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
+	--        augroup END
+	--      ]])
+	-- end
 end
 
 function M.common_capabilities()

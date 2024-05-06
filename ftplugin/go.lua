@@ -3,6 +3,7 @@ if vim.b[buf].go_ftplugin then
 	return
 end
 vim.b[buf].go_ftplugin = true
+-- vim.b[buf].lsp_fallback = "always"
 
 local ok, dapgo = pcall(require, "dap-go")
 
