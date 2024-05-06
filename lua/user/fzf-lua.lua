@@ -67,9 +67,6 @@ function M.config()
 	fzf_lua.setup({
 		winopts = {
 			split = "aboveleft new", -- open in a split instead?
-			preview = {
-				hidden = "hidden",
-			},
 		},
 		fzf_colors = function()
 			return {
@@ -89,6 +86,11 @@ function M.config()
 				-- ["scrollbar"] = { "fg", "WarningMsg" },
 			}
 		end,
+		git = {
+			status = {
+				preview_pager = false,
+			},
+		},
 	})
 
 	local keymap = vim.keymap.set
