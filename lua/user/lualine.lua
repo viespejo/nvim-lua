@@ -1,5 +1,6 @@
 local M = {
 	"nvim-lualine/lualine.nvim",
+	event = "VeryLazy",
 	dependencies = {
 		"AndreM222/copilot-lualine",
 	},

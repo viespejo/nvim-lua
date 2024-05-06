@@ -1,5 +1,6 @@
 local M = {
 	"ibhagwan/fzf-lua",
+	event = "VeryLazy",
 	-- optional for icon support
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 }
