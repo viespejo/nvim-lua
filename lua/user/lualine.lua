@@ -96,8 +96,56 @@ function M.config()
 
 			return msg
 		end,
-		icon = " LSP:",
-		color = { fg = "#ffffff", gui = "bold" },
+		icon = "LSP:",
+		-- color = { fg = "#ffffff", gui = "bold" },
+	}
+
+	local conform_formatters = {
+		function()
+			local msg = "No Active Formatters"
+
+			local ok, conform = pcall(require, "conform")
+			if not ok then
+				return msg
+			end
+
+			local formatters = conform.list_formatters()
+			-- { { name = "prettier" }, { name = "eslint" } }
+			if next(formatters) == nil then
+				return msg
+			end
+
+			local formatters_names = {}
+			for _, formatter in ipairs(formatters) do
+				table.insert(formatters_names, formatter.name)
+			end
+
+			if next(formatters_names) ~= nil then
+				local concatenated = table.concat(formatters_names, ", ")
+				local max = 40
+				-- trucate the string if it's too long
+				if string.len(concatenated) > max then
+					concatenated = string.sub(concatenated, 1, max) .. "..."
+				end
+
+				return concatenated
+			end
+
+			return msg
+		end,
+		icon = "Formatters:",
+		-- color = { fg = "#ffffff", gui = "bold" },
+	}
+
+	local linter_nvim_lint = {
+		function()
+			local linters = require("lint").get_running()
+			if #linters == 0 then
+				return "󰦕"
+			end
+			return "󱉶 " .. table.concat(linters, ", ")
+		end,
+		icon = "Linter:",
 	}
 
 	require("lualine").setup({
@@ -112,8 +160,15 @@ function M.config()
 			lualine_a = { mode },
 			-- lualine_b = { branch, diff, diagnostics },
 			lualine_b = { branch, diagnostics },
-			lualine_c = { "filename" },
-			lualine_x = { lsp_server, "copilot", "encoding", { "fileformat", icons_enabled = false }, filetype },
+			lualine_c = { "filename", "copilot" },
+			lualine_x = {
+				linter_nvim_lint,
+				conform_formatters,
+				lsp_server,
+				"encoding",
+				{ "fileformat", icons_enabled = false },
+				filetype,
+			},
 			lualine_y = { "progress" },
 			lualine_z = { "location" },
 		},
