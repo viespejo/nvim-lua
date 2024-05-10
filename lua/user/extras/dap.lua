@@ -134,6 +134,7 @@ function M.config()
 				name = "Launch file",
 				program = "${file}",
 				cwd = "${workspaceFolder}",
+				sourceMaps = true,
 			},
 			{
 				type = "pwa-node",
@@ -141,6 +142,7 @@ function M.config()
 				name = "Attach",
 				processId = require("dap.utils").pick_process,
 				cwd = "${workspaceFolder}",
+				sourceMaps = true,
 			},
 			{
 				type = "pwa-chrome",
@@ -163,6 +165,7 @@ function M.config()
 				end,
 				webRoot = "${workspaceFolder}",
 				skipFiles = { "<node_internals>/**/*.js" },
+				sourceMaps = true,
 			},
 			{
 				type = "pwa-chrome",
@@ -185,6 +188,7 @@ function M.config()
 				end,
 				webRoot = "${workspaceFolder}",
 				skipFiles = { "<node_internals>/**/*.js" },
+				sourceMaps = true,
 			},
 		}
 	end
