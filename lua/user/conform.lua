@@ -126,7 +126,7 @@ function M.config()
 		"n",
 		"<leader>fd",
 		":FormatOnSaveDisable!<cr>",
-		{ noremap = true, desc = "Enable autofomat-on-save" }
+		{ noremap = true, desc = "Disable autofomat-on-save" }
 	)
 end
 
