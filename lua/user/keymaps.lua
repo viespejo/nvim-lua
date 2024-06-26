@@ -27,8 +27,8 @@ keymap("n", "<leader>evw", [[:edit <c-r>=stdpath('config')<cr>/lua/user/workdirs
 keymap("n", "Q", ":bd<cr>", opts)
 
 -- Move text up and down
-keymap("n", "<m-j>", "<esc>:m .+1<cr>==", opts)
-keymap("n", "<m-k>", "<esc>:m .-2<cr>==", opts)
+keymap("n", "<c-s-down>", "<esc>:m .+1<cr>==", opts)
+keymap("n", "<c-s-up>", "<esc>:m .-2<cr>==", opts)
 
 -- Better window navigation
 keymap("n", "<leader>w", "<c-w>", opts)
@@ -102,8 +102,8 @@ keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
 -- Move text up and down
-keymap("v", "<m-j>", ":m .+1<cr>==", opts)
-keymap("v", "<m-k>", ":m .-2<cr>==", opts)
+keymap("v", "<c-s-down>", ":m .+1<cr>==", opts)
+keymap("v", "<c-s-up>", ":m .-2<cr>==", opts)
 
 -- copy whith losing register
 -- keymap({ "x", "v" }, "p", [["_dP]])
@@ -111,8 +111,8 @@ keymap("v", "<m-k>", ":m .-2<cr>==", opts)
 -- VISUAL BLOCK
 
 -- -- Move text up and down
-keymap("x", "<m-j>", ":move '>+1<cr>gv-gv", opts)
-keymap("x", "<m-k>", ":move '<-2<cr>gv-gv", opts)
+keymap("x", "<c-s-down>", ":move '>+1<cr>gv-gv", opts)
+keymap("x", "<c-s-up>", ":move '<-2<cr>gv-gv", opts)
 
 -- COMMAND
 
