@@ -78,8 +78,10 @@ function M.config()
 			for _, client in ipairs(clients) do
 				local filetypes = client.config.filetypes
 				if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-					-- add client name to the list
-					table.insert(client_names, client.name)
+					-- add client name to the list only if it is not exist
+					if not vim.tbl_contains(client_names, client.name) then
+						table.insert(client_names, client.name)
+					end
 				end
 			end
 
