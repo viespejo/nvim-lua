@@ -67,7 +67,13 @@ function M.config()
 	fzf_lua.setup({
 		winopts = {
 			split = "aboveleft new", -- open in a split instead?
+			preview = {
+				hidden = "hidden",
+			},
 		},
+		-- files = {
+		-- 	previewer = false,
+		-- },
 		fzf_colors = function()
 			return {
 				-- ["fg"] = { "fg", "Normal" },

@@ -55,6 +55,7 @@ function M.config()
 		"branch",
 		-- icons_enabled = true,
 		icon = "",
+		cond = hide_in_width,
 	}
 
 	local mode = {
@@ -64,81 +65,6 @@ function M.config()
 		end,
 	}
 
-	local lsp_server = {
-		-- Lsp server name .
-		function()
-			local msg = "No Active Lsp"
-			local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-			local clients = vim.lsp.get_active_clients()
-			if next(clients) == nil then
-				return msg
-			end
-
-			local client_names = {}
-			for _, client in ipairs(clients) do
-				local filetypes = client.config.filetypes
-				if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-					-- add client name to the list only if it is not exist
-					if not vim.tbl_contains(client_names, client.name) then
-						table.insert(client_names, client.name)
-					end
-				end
-			end
-
-			if next(client_names) ~= nil then
-				local concatenated = table.concat(client_names, ", ")
-				local max = 40
-				-- trucate the string if it's too long
-				if string.len(concatenated) > max then
-					concatenated = string.sub(concatenated, 1, max) .. "..."
-				end
-
-				return concatenated
-			end
-
-			return msg
-		end,
-		icon = "LSP:",
-		-- color = { fg = "#ffffff", gui = "bold" },
-	}
-
-	local conform_formatters = {
-		function()
-			local msg = "No Active Formatters"
-
-			local ok, conform = pcall(require, "conform")
-			if not ok then
-				return msg
-			end
-
-			local formatters = conform.list_formatters()
-			-- { { name = "prettier" }, { name = "eslint" } }
-			if next(formatters) == nil then
-				return msg
-			end
-
-			local formatters_names = {}
-			for _, formatter in ipairs(formatters) do
-				table.insert(formatters_names, formatter.name)
-			end
-
-			if next(formatters_names) ~= nil then
-				local concatenated = table.concat(formatters_names, ", ")
-				local max = 40
-				-- trucate the string if it's too long
-				if string.len(concatenated) > max then
-					concatenated = string.sub(concatenated, 1, max) .. "..."
-				end
-
-				return concatenated
-			end
-
-			return msg
-		end,
-		icon = "Formatters:",
-		-- color = { fg = "#ffffff", gui = "bold" },
-	}
-
 	local linter_nvim_lint = {
 		function()
 			local linters = require("lint").get_running()
@@ -146,6 +72,13 @@ function M.config()
 				return "󰦕"
 			end
 			return "󱉶 " .. table.concat(linters, ", ")
+		end,
+		cond = function()
+			local linters = require("lint")._resolve_linter_by_ft(vim.bo.filetype)
+			if #linters == 0 then
+				return false
+			end
+			return true
 		end,
 		icon = "Linter:",
 	}
@@ -159,17 +92,18 @@ function M.config()
 			-- ignore_focus = { "NvimTree" },
 		},
 		sections = {
-			lualine_a = { mode },
+			lualine_a = { "mode" },
 			-- lualine_b = { branch, diff, diagnostics },
-			lualine_b = { branch, diagnostics },
+			lualine_b = { branch },
 			lualine_c = { "filename", "copilot" },
 			lualine_x = {
 				linter_nvim_lint,
-				conform_formatters,
-				lsp_server,
+				-- conform_formatters,
+				-- lsp_server,
 				"encoding",
 				{ "fileformat", icons_enabled = false },
 				filetype,
+				require("lualine.components.codecompanion"),
 			},
 			lualine_y = { "progress" },
 			lualine_z = { "location" },

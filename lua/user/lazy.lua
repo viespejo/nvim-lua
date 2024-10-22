@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	spec = LAZY_PLUGIN_SPEC,
+	spec = require("user.spec").get(),
 	install = {
 		colorscheme = { "tokyonight", "default" },
 	},

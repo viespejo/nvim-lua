@@ -2,8 +2,34 @@ local M = {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
+		-- {
+		-- 	"folke/neodev.nvim",
+		-- },
 		{
-			"folke/neodev.nvim",
+			"folke/lazydev.nvim",
+			ft = "lua", -- only load on lua files
+			opts = {
+				library = {
+					-- Library paths can be absolute
+					-- "~/projects/my-awesome-lib",
+					-- Or relative, which means they will be resolved from the plugin dir.
+					-- "lazy.nvim",
+					-- "luvit-meta/library",
+					-- It can also be a table with trigger words / mods
+					-- Only load luvit types when the `vim.uv` word is found
+					-- { path = "luvit-meta/library", words = { "vim%.uv" } },
+					-- always load the LazyVim library
+					-- "LazyVim",
+					-- Only load the lazyvim library when the `LazyVim` global is found
+					-- { path = "LazyVim", words = { "LazyVim" } },
+					-- Load the wezterm types when the `wezterm` module is required
+					-- Needs `justinsgithub/wezterm-types` to be installed
+					-- { path = "wezterm-types", mods = { "wezterm" } },
+					-- Load the xmake types when opening file named `xmake.lua`
+					-- Needs `LelouchHe/xmake-luals-addon` to be installed
+					-- { path = "xmake-luals-addon/library", files = { "xmake.lua" } },
+				},
+			},
 		},
 		-- Visualize lsp progress
 		{
@@ -112,7 +138,7 @@ function M.config()
 		"cssmodules_ls",
 		"cssls",
 		"intelephense",
-		"lua_ls",
+		"lua_ls", -- we've removed the lua_lsp.lua file in lspsettings...lazydev is responsable to config LSPLua
 		"pyright",
 		-- "tailwindcss",
 		"html",
@@ -185,16 +211,15 @@ function M.config()
 			}
 		end
 
-		if server == "lua_ls" then
-			require("neodev").setup({
-				library = {
-					plugins = false, -- installed opt or start plugins in packpath
-					-- you can also specify the list of plugins to make available as a workspace library
-					-- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
-				},
-			})
-		end
-
+		-- if server == "lua_ls" --[[ then ]]
+		-- 	require("neodev").setup({
+		-- 		library = {
+		-- 			plugins = false, -- installed opt or start plugins in packpath
+		-- 			-- you can also specify the list of plugins to make available as a workspace library
+		-- 			-- plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
+		-- 		},
+		-- 	})
+		-- end
 		lspconfig[server].setup(opts)
 	end
 end

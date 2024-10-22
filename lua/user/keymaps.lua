@@ -25,17 +25,19 @@ keymap("n", "<leader>evw", [[:edit <c-r>=stdpath('config')<cr>/lua/user/workdirs
 
 -- Delete buffer
 keymap("n", "Q", ":bd<cr>", opts)
+-- Delete all buffers except the current one
+keymap("n", "<leader>bo", ":%bd|e#|bd#<cr>", opts)
 
 -- Move text up and down
-keymap("n", "<c-s-down>", "<esc>:m .+1<cr>==", opts)
-keymap("n", "<c-s-up>", "<esc>:m .-2<cr>==", opts)
+keymap("n", "<m-j>", "<esc>:m .+1<cr>==", opts)
+keymap("n", "<m-k>", "<esc>:m .-2<cr>==", opts)
 
 -- Better window navigation
 keymap("n", "<leader>w", "<c-w>", opts)
-keymap("n", "<c-h>", "<c-w>h", opts)
-keymap("n", "<c-j>", "<c-w>j", opts)
-keymap("n", "<c-k>", "<c-w>k", opts)
-keymap("n", "<c-l>", "<c-w>l", opts)
+-- keymap("n", "<c-h>", "<c-w>h", opts)
+-- keymap("n", "<c-j>", "<c-w>j", opts)
+-- keymap("n", "<c-k>", "<c-w>k", opts)
+-- keymap("n", "<c-l>", "<c-w>l", opts)
 
 -- Resize with arrows
 keymap("n", "<m-Up>", ":resize -1<cr>", opts)
@@ -47,6 +49,7 @@ keymap("n", "<m-Right>", ":vertical resize +1<cr>", opts)
 keymap("n", "<m-n>", ":bn<cr>", opts)
 keymap("n", "<m-p>", ":bp<cr>", opts)
 keymap("n", "<leader>3", ":b#<cr>", opts)
+keymap("n", "<leader>.", ":b#<cr>", opts)
 
 -- Navigate tabs
 keymap("n", "<m-h>", ":tabprevious<cr>", opts)
@@ -58,8 +61,9 @@ keymap("n", "<leader>e.", ":e %:p:h<cr>", opts)
 keymap("n", "<leader>ee", ":e.<cr>", opts)
 
 -- nvimtree
-keymap("n", "<Space>e", ":NvimTreeToggle<cr>", opts)
-keymap("n", "<Space>E", ":NvimTreeOpen .<cr>", opts)
+keymap("n", "<Space>eo", ":NvimTreeToggle<cr>", opts)
+keymap("n", "<Space>e.", ":NvimTreeOpen %:p:h<cr>", opts)
+keymap("n", "<Space>ee", ":NvimTreeOpen .<cr>", opts)
 
 -- helper to edit mode
 keymap("n", "<leader>ew", ":e <c-r>=expand('%:h')<cr>", {})
@@ -69,6 +73,7 @@ keymap("n", "<Space>w", ":set wrap!<cr>", opts)
 
 -- toggle spell
 keymap("n", "<Space>z", ":set spell!<cr>", opts)
+keymap("n", "<leader>z", ":SpellCheck<cr>", opts)
 
 -- quickfix and location list
 keymap("n", "<leader>qo", ":copen<cr>", opts)
@@ -85,10 +90,13 @@ keymap("n", "<leader>lgg", ":lfirst<cr>zz", opts)
 keymap("n", "<leader>lG", ":llast<cr>zz", opts)
 
 -- selecting text you just pasted
-keymap("n", "gv", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { noremap = true, expr = true })
+-- keymap("n", "gv", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { noremap = true, expr = true })
 
 -- turn highlighted matches off but it does not change hlsearch option
 keymap("n", "<leader>/", ":nohlsearch<cr>", opts)
+
+-- change Working Directory to that of the current file
+keymap("n", "<leader>cd", ":lcd %:p:h<cr>", opts)
 
 -- INSERT
 
@@ -131,9 +139,5 @@ keymap("c", "%%", "<c-r>=expand('%:h')<cr>", command_opts)
 
 -- TERMINAL
 
--- Better terminal navigation
-keymap("t", "ý<esc>", "<c-\\><c-n>", term_opts)
-keymap("t", "ýh", "<c-\\><c-n><c-w>h", opts)
-keymap("t", "ýj", "<c-\\><c-n><c-w>j", opts)
-keymap("t", "ýk", "<c-\\><c-n><c-w>k", opts)
-keymap("t", "ýl", "<c-\\><c-n><c-w>l", opts)
+-- -- Better terminal navigation
+keymap("t", "<c-q>", "<c-\\><c-n>", term_opts)

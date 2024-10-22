@@ -46,7 +46,7 @@ function M.config()
 	-- })
 
 	local cmp = require("cmp")
-	local luasnip = require("luasnip")
+	local ls = require("luasnip")
 	-- local icons = require("user.icons")
 	local types = require("cmp.types")
 	local lspkind = require("lspkind")
@@ -60,7 +60,7 @@ function M.config()
 	cmp.setup({
 		snippet = {
 			expand = function(args)
-				luasnip.lsp_expand(args.body) -- For `luasnip` users.
+				ls.lsp_expand(args.body) -- For `luasnip` users.
 			end,
 		},
 		completion = {

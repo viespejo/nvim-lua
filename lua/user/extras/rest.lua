@@ -12,23 +12,14 @@ local M = {
 		},
 		"luarocks.nvim",
 	},
+	keys = {
+		{ "<leader>rr", "<cmd>Rest run<cr>", desc = "Run REST request" },
+		{ "<leader>rl", "<cmd>Rest last<cr>", desc = "Re-run last REST request" },
+	},
 }
 
 function M.config()
-	require("rest-nvim").setup({
-		keybinds = {
-			{
-				"<localleader>rr",
-				"<cmd>Rest run<cr>",
-				"Run request under the cursor",
-			},
-			{
-				"<localleader>rl",
-				"<cmd>Rest run last<cr>",
-				"Re-run latest request",
-			},
-		},
-	})
+	require("rest-nvim").setup()
 end
 
 return M
