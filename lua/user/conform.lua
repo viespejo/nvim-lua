@@ -42,6 +42,7 @@ function M.config()
 			["scss"] = { "prettier", "stylelint" },
 			["less"] = { "prettier", "stylelint" },
 			["sass"] = { "prettier", "stylelint" },
+			["sh"] = { "shfmt", "shellcheck" },
 		},
 		format_on_save = function(bufnr)
 			if slow_format_buffers[bufnr] then
